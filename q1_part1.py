@@ -1,8 +1,8 @@
-# Name: <your full name>
-# Student ID: <your ID>
-# Date: <date you started>
+# Name: Stephan Javorn Jones 
+# Student ID: 500004652
+# Date: 16th October 2026
 # Question: Q1 Checkpoint Plate Reader - Part 1
-# Collaborators: <names, or 'none'>
+# Collaborators: none
 # Tools used: <AI tools / websites used, or 'none' - also record them in AI_LOG.md>
 """Normalise a licence plate and check its basic shape."""
 
@@ -16,8 +16,10 @@ def is_letter(ch: str) -> bool:
 
     Optional helper: you may delete it or write your own. Not unit-tested.
     """
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    if len(ch) == 1 and "A" <= ch <= "Z":
+        return True
+    return False
 
 
 def is_digit(ch: str) -> bool:
@@ -25,26 +27,57 @@ def is_digit(ch: str) -> bool:
 
     Optional helper: you may delete it or write your own. Not unit-tested.
     """
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    if len(ch) == 1 and "0" <= ch <= "9":
+        return True
+    return False
 
 
 def normalise_plate(raw: str) -> str:
     """Return raw stripped, upper-cased, with every space and hyphen removed."""
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    plate = raw.strip()
+    plate = plate.replace (" ", "")
+    plate = plate.replace ("-", "")
+    plate = plate.upper()
+    return plate
+
 
 
 def is_valid_plate(plate: str) -> bool:
     """Return True if the normalised plate satisfies every plate rule."""
-    # TODO: replace 'pass' with your code.
-    pass
+    i = 0
+    while i < len(plate) and is_letter(plate[i]):
+        i += 1
+        if i < 1 or i > MAX_LETTERS:
+            return False
+        digit_count = 0
+
+    if i >= len(plate) or plate[i] == "0":
+        return False
+    while i < len(plate) and is_digit(plate[i]):
+        digit_count += 1
+        i += 1
+    if digit_count < MIN_DIGITS or digit_count > MAX_DIGITS:
+        return False
+
+    if i != len(plate):
+        return False
+    
+    return True
 
 
 def main() -> None:
     """Read a plate and print its normalised form and status."""
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    raw = input("Enter plate: ")
+    plate = normalise_plate(raw)
+    print(f"Normalized plate: {plate}")
+
+    if is_valid_plate(plate):
+        print("Status: Valid")
+    else: 
+        print("Status: Invalid")
 
 
 if __name__ == "__main__":

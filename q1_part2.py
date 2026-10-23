@@ -1,8 +1,8 @@
-# Name: <your full name>
-# Student ID: <your ID>
-# Date: <date you started>
-# Question: Q1 Checkpoint Plate Reader - Part 2
-# Collaborators: <names, or 'none'>
+# Name: Stephan Javorn Jones
+# Student ID: 500004652
+# Date: 16th October 2026
+# Question: Q1 Checkpoint Plate Reader - Part 3
+# Collaborators: none
 # Tools used: <AI tools / websites used, or 'none' - also record them in AI_LOG.md>
 """Normalise and validate a licence plate, then report its category and island."""
 
@@ -18,47 +18,103 @@ def is_letter(ch: str) -> bool:
 
     Optional helper: you may delete it or write your own. Not unit-tested.
     """
-    # TODO: replace 'pass' with your code.
-    pass
+   
+    if len(ch) == 1 and "A" <= ch <= "Z":
+            return True
+    return False
 
 
 def is_digit(ch: str) -> bool:
     """Return True if ch is exactly one of the characters 0 to 9.
 
     Optional helper: you may delete it or write your own. Not unit-tested.
-    """
-    # TODO: replace 'pass' with your code.
-    pass
+    """ 
+    if len(ch) == 1 and "0" <= ch <= "9":
+            return True
+    return False
 
 
 def normalise_plate(raw: str) -> str:
     """Return raw stripped, upper-cased, with every space and hyphen removed."""
     # TODO: replace 'pass' with your code.
-    pass
+    plate = raw.strip()
+    plate = plate.replace (" ", "")
+    plate = plate.replace ("-", "")
+    plate = plate.upper()
+    return plate
 
 
 def is_valid_plate(plate: str) -> bool:
     """Return True if the normalised plate satisfies every plate rule."""
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    if len(plate) < 2:
+        return False
+
+    if plate[0] not in CATEGORY_LETTERS:
+        return False
+
+    pos = 1
+
+    if plate[1] == BARBUDA_MARKER:
+        pos += 1
+
+    digits = plate[pos:]
+
+    if len(digits) < MIN_DIGITS or len(digits) > MAX_DIGITS:
+        return False
+
+    for digit in digits:
+        if not digit.isdigit():
+            return False
+    return True
 
 
 def plate_category(plate: str) -> str:
     """Return the vehicle category named by the first letter of a valid plate."""
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    if plate[0] == "P":
+        return "Private"
+    elif plate[0] == "T":
+        return "Taxi"
+    elif plate[0] == "H":
+        return "Hired"
+    elif plate[0] == "R":
+        return "Rental"
+    elif plate[0] == "B":
+        return "Bus"
+    elif plate[0] == "G":
+        return "Government"
+
+
 
 
 def plate_island(plate: str) -> str:
     """Return "Barbuda" if a valid plate carries the X marker, else "Antigua"."""
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    if "X" in plate:
+        return "Barbuda"
+    else:
+        return "Antigua"
+    
+    
 
 
 def main() -> None:
     """Read a plate and print its status, category and island."""
-    # TODO: replace 'pass' with your code.
-    pass
+    
+    raw = input("Enter plate: ")
+    plate = normalise_plate(raw)
+    print(f"Normalized plate: {plate}")
+   
+    if is_valid_plate(plate):
+        print("Status: Valid")
+        print(f"Category: {plate_category(plate)}")
+        print(f"Island: {plate_island(plate)}")
+
+    else: 
+        print("Status: Invalid")
+
+    
 
 
 if __name__ == "__main__":
