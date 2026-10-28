@@ -83,13 +83,13 @@ def report_hour(report: str) -> int:
 def most_common_type(thf: int, bur: int, asl: int, trf: int, van: int) -> str:
     """Return the type code with the highest count (ties: THF, BUR, ASL, TRF, VAN)."""
 
-    if thf > bur and thf > asl and thf > trf and thf > van:
+    if thf >= bur and thf >= asl and thf >= trf and thf >= van:
         return "THF"
-    elif bur > asl and bur > trf and bur > van:
+    elif bur >= asl and bur >= trf and bur >= van:
         return "BUR"
-    elif asl > trf and asl > van:
+    elif asl >= trf and asl >= van:
         return "ASL"
-    elif trf > van:
+    elif trf >= van:
         return "TRF"
     else:
         return "VAN"
@@ -115,6 +115,12 @@ def main() -> None:
 
     valid_count = 0
     invalid_count = 0
+    parish_total = 0
+    thf = 0
+    bur = 0
+    asl = 0
+    trf = 0
+    van = 0
     
     while True:
         raw_report = input(REPORT_PROMPT)
@@ -126,17 +132,35 @@ def main() -> None:
     
         if is_valid_report(report):
             valid_count += 1
+            if report_parish(report) == parish_code:
+                parish_total += 1
+            report_type_code = report_type(report)
+            if report_type_code == "THF":
+                thf += 1
+            elif report_type_code == "BUR":
+                bur += 1
+            elif report_type_code == "ASL":
+                asl += 1
+            elif report_type_code == "TRF":
+                trf += 1
+            elif report_type_code == "VAN":
+                van += 1
         else:
             invalid_count += 1
     
     print(f"Valid reports: {valid_count}")
     print(f"Invalid reports: {invalid_count}")
+
     print(f"THF: {thf}")
     print(f"BUR: {bur}")
     print(f"ASL: {asl}")
     print(f"TRF: {trf}")
     print(f"VAN: {van}")
-    print(f"Most common type: {most_common_type(thf, bur, asl, trf, van)}")
+
+    print(f"Parish {parish_code} total: {parish_total}")
+    if parish_total > 0:
+        most_common = most_common_type(thf, bur, asl, trf, van)
+        print(f"Most common type: {most_common}")
 
 
 

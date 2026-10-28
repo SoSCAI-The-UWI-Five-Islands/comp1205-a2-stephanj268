@@ -6,7 +6,6 @@
 # Tools used: <AI tools / websites used, or 'none' - also record them in AI_LOG.md>
 """Normalise and validate a licence plate, then match it against a watch-list pattern."""
 
-from curses import raw
 
 
 CATEGORY_LETTERS = "PTHRBG"
