@@ -1,8 +1,8 @@
-# Name: Stephan Javorn Jones 
+# Name: Stephan Jones
 # Student ID: 500004652
-# Date: 16th October 2026
+# Date: 19th October 2026
 # Question: Q1 Checkpoint Plate Reader - Part 1
-# Collaborators: none
+# Collaborators: <names, or 'none'>
 # Tools used: <AI tools / websites used, or 'none' - also record them in AI_LOG.md>
 """Normalise a licence plate and check its basic shape."""
 
@@ -72,12 +72,12 @@ def main() -> None:
     
     raw = input("Enter plate: ")
     plate = normalise_plate(raw)
-    print(f"Normalized plate: {plate}")
+    print(f"Normalised plate: {plate}")
 
     if is_valid_plate(plate):
-        print("Status: Valid")
+        print("Status: VALID")
     else: 
-        print("Status: Invalid")
+        print("Status: INVALID")
 
 
 if __name__ == "__main__":
